@@ -1,11 +1,17 @@
-node ('ecomm') {
-    stage ('git'){
+pipeline {
+    agent { label 'ecomm'}
+    stage ('scm'){
+        steps {
         git 'https://github.com/srikanthreddy2021/game-of-life.git'
     }
-    stage ('maven') {
-        sh 'mvn clean package'
-    }
-    stage ('archive artifacts'){
-        artifacts: 'gameoflife-web/targets/gameoflife.war'
+    stage ('build'){
+        steps {
+            sh script: 'mvn clean package'
+        }
+        stage ('post build')
+        steps {
+            junit 'gameoflife-web/target/surefire-reports/*.xmal'
+            archiveArtifacts 'gameoflife-web/target/*.war'
+        }
     }
 }
