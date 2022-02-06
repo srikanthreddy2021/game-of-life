@@ -31,6 +31,7 @@ pipeline {
             agent { label 'ltelog'}
             steps {
                 unstash name: 'warfile'
+                sh script 'echo you can deploy your file using ansible or terraform now'
             }
         }
     }
