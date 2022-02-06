@@ -17,5 +17,6 @@ pipeline {
                 archiveArtifacts 'gameoflife-web/target/*.war'
             }
         }
+        
     }
 }
